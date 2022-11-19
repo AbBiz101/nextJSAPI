@@ -48,16 +48,6 @@ export default function Home() {
 				<button>Send Feedback </button>
 			</form>
 			<hr />
-			<button onClick={getFeedback}>Get Feedback </button>
-			<ul>
-				{feedbacks &&
-					feedbacks.map((i) => (
-						<li key={i.id}>
-							<p>{i.feedback}</p>
-							<p>{i.email}</p>
-						</li>
-					))}
-			</ul>
 		</div>
 	);
 }
