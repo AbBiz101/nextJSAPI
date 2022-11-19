@@ -8,7 +8,7 @@ export default function Home() {
 		event.preventDefault();
 		const emailEntered = emailRef.current.value;
 		const feedbackEntered = feedbackRef.current.value;
-
+	}
 
 	return (
 		<div>
