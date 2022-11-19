@@ -1,10 +1,9 @@
 import fs from 'fs';
-import path from 'path';
+import { filePath, extractFeedback } from './../../utils/helper';
 
 export default function handler(req, res) {
-	const feedbackFile = path.join(process.cwd(), 'data', 'feedback.json');
-	const oldData = fs.readFileSync(feedbackFile);
-	const data = JSON.parse(oldData);
+	const feedbackFile = filePath();
+	const data = extractFeedback(feedbackFile);
 
 	if (req.method === 'POST') {
 		const email = req.body.email;
