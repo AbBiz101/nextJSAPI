@@ -6,8 +6,17 @@ export default function Home() {
 
 	function submitHandler(event) {
 		event.preventDefault();
-		const emailEntered = emailRef.current.value;
-		const feedbackEntered = feedbackRef.current.value;
+
+		const enteredBody = {
+			email: emailRef.current.value,
+			feedback: feedbackRef.current.value,
+		};
+
+		fetch('api/feedback', {
+			method: 'POST',
+			body: JSON.stringify(enteredBody),
+			headers: { 'Content-Type': 'application/json' },
+		}).then(res=>res.json()).then(data=>console.log(data))
 	}
 
 	return (
