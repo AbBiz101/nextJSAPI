@@ -1,6 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 export default function Home() {
+	const [feedbacks, setFeedbacks] = useState();
 	const emailRef = useRef();
 	const feedbackRef = useRef();
 
@@ -16,7 +17,18 @@ export default function Home() {
 			method: 'POST',
 			body: JSON.stringify(enteredBody),
 			headers: { 'Content-Type': 'application/json' },
-		}).then(res=>res.json()).then(data=>console.log(data))
+		})
+			.then((res) => res.json())
+			.then((data) => console.log(data));
+	}
+
+	function getFeedback() {
+		fetch('api/feedback')
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				setFeedbacks(data.feedback);
+			});
 	}
 
 	return (
@@ -27,13 +39,25 @@ export default function Home() {
 					<label htmlFor="email">Your email </label>
 					<input type="email" ref={emailRef} id="email" />
 				</div>
-
+				<hr />
 				<div>
 					<label htmlFor="feedback">Your feedback</label>
 					<textarea rows="5" ref={feedbackRef} id="feedback" />
 				</div>
+				<hr />
 				<button>Send Feedback </button>
 			</form>
+			<hr />
+			<button onClick={getFeedback}>Get Feedback </button>
+			<ul>
+				{feedbacks &&
+					feedbacks.map((i) => (
+						<li key={i.id}>
+							<p>{i.feedback}</p>
+							<p>{i.email}</p>
+						</li>
+					))}
+			</ul>
 		</div>
 	);
 }
